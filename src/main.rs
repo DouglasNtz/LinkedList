@@ -127,6 +127,7 @@ fn main() {
 
     link.pospend(25, "E".to_string());
     link.show();
+    link.delete(25);
     link.pospend(9, "D".to_string());
     link.show();
     link.pospend(16, "C".to_string());

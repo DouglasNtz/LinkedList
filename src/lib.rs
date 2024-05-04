@@ -367,12 +367,16 @@ impl<T: Copy + PartialEq, E> LinkedList<T, E> {
     pub fn delete(self: &mut Self, key: T) {
 
         let mut pos = None;
+        let mut prev = None;
+        let mut next = None;
 
         for (i, element) in self.list.iter().enumerate() {
 
             if element.key == key {
 
                 pos = Some(i);
+                prev = element.prev;
+                next = element.next;
 
                 break
             }
@@ -381,9 +385,6 @@ impl<T: Copy + PartialEq, E> LinkedList<T, E> {
         match pos {
 
             Some(i) => {
-
-                let prev = self.list[i].prev;
-                let next = self.list[i].next;
 
                 match prev {
 
@@ -399,22 +400,25 @@ impl<T: Copy + PartialEq, E> LinkedList<T, E> {
 
                 let ultimo = self.list.len() - 1;
 
-                self.list.swap(i, ultimo);  // trocamos com um último índice
+                if ultimo == 0 {
+                    self.list.pop();
+                    return;
+                }
 
-                self.list.pop();
+                self.list.swap(i, ultimo);  // trocamos com um último índice
 
                 // agora temos que arrumar o prev e next do elemento que era o último índice e virou índice i
 
-                let prev = self.list[i].prev;
-                let next = self.list[i].next;
+                let iprev = self.list[i].prev;
+                let inext = self.list[i].next;
 
-                match prev {
+                match iprev {
 
                     Some(j) => self.list[j].next = Some(i),
                     None => self.head = Some(i)
                 }
 
-                match next {
+                match inext {
 
                     Some(j) => self.list[j].prev = Some(i),
                     None => {}
