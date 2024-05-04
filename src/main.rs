@@ -118,6 +118,50 @@ fn main() {
 
     println!("Linked list vazia: {}", link.is_empty());
 
+
+    //----------
+
+    let mut link = LinkedList::new();
+
+    println!("Linked lista vazia: {}", link.is_empty());
+
+    link.pospend(25, "E".to_string());
+    link.show();
+    link.pospend(9, "D".to_string());
+    link.show();
+    link.pospend(16, "C".to_string());
+    link.show();
+    link.pospend(4, "B".to_string());
+    link.show();
+    link.pospend(1, "A".to_string());
+    link.show();
+    link.insert(36, "F".to_string(), 9);
+    link.show();
+    link.delete(4);
+    link.show();
+    println!("{:?}", link.get(36));
+
+    let x = link.get_mut(36);
+    x.unwrap().push_str("X");
+    println!("{:?}", link.get(36));
+
+    println!("{:?}", link.get_antecessor(36));
+
+    let x = link.get_mut_antecessor(36);
+    x.unwrap().push_str("Y");
+    println!("{:?}", link.get_antecessor(36));
+
+    println!("{:?}", link.get_sucessor(36));
+
+    let x = link.get_mut_sucessor(36);
+    x.unwrap().push_str("W");
+    println!("{:?}", link.get_sucessor(36));
+
+    println!("{:?}", link.get_sucessor(1));
+    println!("{:?}", link.get_antecessor(25));
+
+    println!("Linked list vazia: {}", link.is_empty());
+
 }
 
 

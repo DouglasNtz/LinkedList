@@ -294,6 +294,36 @@ impl<T: Copy + PartialEq, E> LinkedList<T, E> {
 
     }
 
+    pub fn pospend(self: &mut Self, key: T, satelite: E) {
+
+        for element in &self.list {
+            if element.key == key {
+                println!("Chave a ser inserida já existe.");
+                return;
+            }
+        }
+
+        let mut tail = None;
+
+        for (i, element) in self.list.iter().enumerate() {
+            if element.next == None {
+                tail = Some(i);
+                break;
+            }
+        }
+
+        self.list.push(Element {prev: tail, key, next: None, satelite: satelite});
+
+        match tail {
+
+            Some(i) => self.list[i].next = Some(self.list.len() - 1),
+
+            None => self.head = Some(self.list.len() - 1)
+        }
+
+    }
+
+
     pub fn insert(self: &mut Self, key: T, satelite: E, prev_key: T) {
 
         for element in &self.list {
@@ -394,6 +424,33 @@ impl<T: Copy + PartialEq, E> LinkedList<T, E> {
         }
 
 
+    }
+
+    pub fn head(self: &Self) -> Option<&E> {
+
+        match self.head {
+
+            Some(i) => Some(&self.list[i].satelite),
+
+            None => {
+                println!("Linked list vazia!");
+                None
+            }
+        }
+    }
+
+    pub fn tail(self: &Self) -> Option<&E> {
+
+        for element in &self.list {
+
+            if element.next == None {
+
+                return Some(&element.satelite)
+            }
+        }
+
+        println!("Linked lista vazia!");
+        None
     }
 
     pub fn get(self: &Self, key: T) -> Option<&E> {
