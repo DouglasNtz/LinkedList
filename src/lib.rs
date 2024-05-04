@@ -274,6 +274,13 @@ impl<T: Copy + PartialEq, E> LinkedList<T, E> {
 
     pub fn prepend(self: &mut Self, key: T, satelite: E) {
 
+        for element in &self.list {
+            if element.key == key {
+                println!("Chave a ser inserida já existe.");
+                return;
+            }
+        }
+
         self.list.push(Element {prev: None, key, next: self.head, satelite: satelite});
 
         match self.head {
@@ -288,6 +295,13 @@ impl<T: Copy + PartialEq, E> LinkedList<T, E> {
     }
 
     pub fn insert(self: &mut Self, key: T, satelite: E, prev_key: T) {
+
+        for element in &self.list {
+            if element.key == key {
+                println!("Chave a ser inserida já existe.");
+                return;
+            }
+        }
 
         let mut pos = None;
 
@@ -316,7 +330,7 @@ impl<T: Copy + PartialEq, E> LinkedList<T, E> {
                 self.list.push(Element { prev: Some(i), key, next, satelite});
             }
 
-            None => println!("Chave prévia inexistente!")
+            None => println!("Chave antecessora inexistente.")
         }
     }
 
